@@ -1,0 +1,28 @@
+<h2 class="text-center">
+  <button class="btn btn-primary btn-sm">
+    <i class="fas fa-plus-square"></i>
+  </button>
+</h2>
+
+<hr>
+
+<div class="alert alert-warning" *ngIf="error">
+  {{ errorMessage }}
+</div>
+
+<table class="table">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Title</th>
+    <th scope="col">Content</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let todo of todos">
+    <th scope="row">{{ todo.id }}</th>
+    <td>{{ todo.title }}</td>
+    <td>{{ todo.content }}</td>
+  </tr>
+  </tbody>
+</table>
