@@ -1,28 +1,55 @@
 <h2 class="text-center">
-  <button class="btn btn-primary btn-sm">
-    <i class="fas fa-plus-square"></i>
-  </button>
+  <div class="btn-group">
+    <button class="btn btn-primary mr-3">
+      <i class="far fa-plus-square"></i> Add task
+    </button>
+  </div>
+
+  <div class="btn-group">
+    <button class="btn btn-secondary" (click)="onUpdateTasksList()">
+      <i class="fas fa-sync"></i> Refresh List
+    </button>
+  </div>
 </h2>
 
 <hr>
 
 <div class="alert alert-warning" *ngIf="error">
-  {{ errorMessage }}
+  {{ errorMessage | json }}
 </div>
 
 <table class="table">
-  <thead>
+  <thead align="center">
   <tr>
     <th scope="col">#</th>
     <th scope="col">Title</th>
     <th scope="col">Content</th>
+    <th scope="col">Creation date</th>
+    <th scope="col">Update date</th>
   </tr>
   </thead>
-  <tbody>
+  <tbody align="center">
   <tr *ngFor="let todo of todos">
     <th scope="row">{{ todo.id }}</th>
     <td>{{ todo.title }}</td>
     <td>{{ todo.content }}</td>
+    <td>{{ todo.created_at | date: 'medium' }}</td>
+    <td>{{ todo.updated_at | date: 'medium' }}</td>
   </tr>
+
+  <!-- Loading case -->
+  <tr *ngIf="todos != null && todos.length == 0">
+    <th scope="row" class="text-center alert alert-warning" colspan="5">
+      <i class="fas fa-spinner fa-spin"></i> Loading ...
+    </th>
+  </tr>
+
+  <!-- No record case -->
+  <tr *ngIf="todos == null">
+    <th scope="row" class="text-center alert alert-warning" colspan="5">
+      <i class="fas fa-exclamation"></i> No task!
+    </th>
+  </tr>
+
   </tbody>
 </table>
