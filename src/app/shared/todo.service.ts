@@ -19,6 +19,31 @@ export class TodoService {
     );
   }
 
+  getTodo(id: number) {
+    return this.http.get<Todo>(`${this.API_URL}${id}/`).pipe(
+      retry(4)
+    );
+  }
+
+  saveTodo(todo: Todo) {
+    const saveUrl = todo.id != null ? `${this.API_URL}${todo.id}/` : this.API_URL;
+    if (todo.id != null) {
+      return this.http.put(saveUrl, todo).pipe(
+        retry(2)
+      );
+    } else {
+      return this.http.post(saveUrl, todo).pipe(
+        retry(2)
+      );
+    }
+  }
+
+  deleteTodo(id: number) {
+    return this.http.delete(`${this.API_URL}${id}/`).pipe(
+      retry(2)
+    );
+  }
+
   private handleError(error) {
     return new Error('An error occurred');
   }

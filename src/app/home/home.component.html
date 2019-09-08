@@ -1,8 +1,8 @@
 <h2 class="text-center">
   <div class="btn-group">
-    <button class="btn btn-primary mr-3">
+    <a [routerLink]="['/save']" ><button class="btn btn-primary mr-3">
       <i class="far fa-plus-square"></i> Add task
-    </button>
+    </button></a>
   </div>
 
   <div class="btn-group">
@@ -12,10 +12,11 @@
   </div>
 </h2>
 
-<hr>
+<!-- Router outlet -->
+<router-outlet></router-outlet>
 
 <div class="alert alert-warning" *ngIf="error">
-  {{ errorMessage | json }}
+  {{ errorMessage }}
 </div>
 
 <table class="table">
@@ -26,6 +27,7 @@
     <th scope="col">Content</th>
     <th scope="col">Creation date</th>
     <th scope="col">Update date</th>
+    <th scope="col" colspan="2">Actions</th>
   </tr>
   </thead>
   <tbody align="center">
@@ -35,18 +37,27 @@
     <td>{{ todo.content }}</td>
     <td>{{ todo.created_at | date: 'medium' }}</td>
     <td>{{ todo.updated_at | date: 'medium' }}</td>
+    <td>
+      <a [routerLink]="['/save', todo.id]"><button class="btn btn-light btn-sm"><i class="fas fa-edit"></i> Edit</button></a>
+    </td>
+    <td>
+      <button class="btn btn-danger btn-sm" (click)="onDeleteTask(todo.id)"><i class="fas fa-trash-alt"></i> Delete</button>
+    </td>
+    <td>
+
+    </td>
   </tr>
 
   <!-- Loading case -->
   <tr *ngIf="todos != null && todos.length == 0">
-    <th scope="row" class="text-center alert alert-warning" colspan="5">
+    <th scope="row" class="text-center alert alert-warning" colspan="7">
       <i class="fas fa-spinner fa-spin"></i> Loading ...
     </th>
   </tr>
 
   <!-- No record case -->
   <tr *ngIf="todos == null">
-    <th scope="row" class="text-center alert alert-warning" colspan="5">
+    <th scope="row" class="text-center alert alert-warning" colspan="7">
       <i class="fas fa-exclamation"></i> No task!
     </th>
   </tr>

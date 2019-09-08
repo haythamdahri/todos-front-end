@@ -1,0 +1,29 @@
+<form (ngSubmit)="onSaveTask()" #taskForm="ngForm" class="mb-5">
+  <div class="form-group">
+    <label for="Title">Title</label>
+    <input type="email" class="form-control" [ngClass]="{'is-invalid': title.invalid && (title.dirty || title.touched)}"
+           name="title" required [(ngModel)]="todo.title" id="Title" #title="ngModel" placeholder="Enter title"/>
+    <div class="invalid-feedback" *ngIf="title.invalid && title.touched && title.errors.required">
+      Title field is required
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="Content">Content</label>
+    <textarea type="email" class="form-control"
+              [ngClass]="{'is-invalid': content.invalid && (content.dirty || content.touched)}" name="content" required
+              [(ngModel)]="todo.content" id="Content" #content="ngModel" placeholder="Enter content"
+              rows="10"></textarea>
+    <div class="invalid-feedback" *ngIf="content.invalid && content.touched && content.errors.required">
+      Content field is required
+    </div>
+  </div>
+  <div class="btn-group mr-2">
+    <button [disabled]="taskForm.invalid" class="btn btn-primary btn-sm" #saveBtn><i class="far fa-save"></i> Save
+    </button>
+  </div>
+  <div class="btn-group mr-2">
+    <a routerLink="/">
+      <button class="btn btn-dark btn-sm"><i class="far fa-window-close"></i> Cancel</button>
+    </a>
+  </div>
+</form>
