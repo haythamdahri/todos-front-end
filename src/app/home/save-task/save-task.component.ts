@@ -60,6 +60,8 @@ export class SaveTaskComponent implements OnInit, OnDestroy {
   onSaveTask() {
     if (this.taskForm.valid) {
       // Save todo on server side
+      // Check if created_at is null
+      this.todo.created_at = this.todo.created_at == null ? new Date() : this.todo.created_at;
       this.saveTodoSubscription = this.todoService.saveTodo(this.todo).subscribe(
         (response) => {
           const Toast = Swal.mixin({
